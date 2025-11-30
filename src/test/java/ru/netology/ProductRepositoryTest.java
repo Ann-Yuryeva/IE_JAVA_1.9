@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductRepositoryTest {
 
+    @Test
     public void CheckSaveAndFindAll() {
         ProductRepository productRepository = new ProductRepository();
 
-        Product item1 = new Product(1, "книга Гарри Поттер Том1");
-        Product item2 = new Product(2, "Iphone");
-        Product item3 = new Product(3, "Игрушка мягкая");
+        Product item1 = new Product(1, "книга Гарри Поттер Том1", 500);
+        Product item2 = new Product(2, "Iphone", 1000);
+        Product item3 = new Product(3, "Игрушка мягкая", 300);
 
         productRepository.save(item1);
         productRepository.save(item2);
@@ -26,7 +27,7 @@ class ProductRepositoryTest {
     @Test
     public void save() {
         ProductRepository repo = new ProductRepository();
-        Product item1 = new Product(1, "книга Гарри Поттер");
+        Product item1 = new Product(1, "книга Гарри Поттер", 500);
         repo.save(item1);
 
         assertEquals(item1, repo.findById(1));
@@ -36,7 +37,7 @@ class ProductRepositoryTest {
     @Test
     void findById() {
         ProductRepository repo = new ProductRepository();
-        Product item2 = new Product(2, "Iphone");
+        Product item2 = new Product(2, "Iphone", 1000);
         repo.save(item2);
 
         assertEquals(item2, repo.findById(2));
@@ -46,9 +47,9 @@ class ProductRepositoryTest {
     @Test
     public void removeById() {
         ProductRepository repo = new ProductRepository();
-        Product item1 = new Product(1, "книга Гарри Поттер Том1");
-        Product item2 = new Product(2, "Iphone");
-        Product item3 = new Product(3, "Игрушка мягкая");
+        Product item1 = new Product(1, "книга Гарри Поттер Том1", 500);
+        Product item2 = new Product(2, "Iphone", 1000);
+        Product item3 = new Product(3, "Игрушка мягкая", 300);
 
         repo.save(item1);
         repo.save(item2);
@@ -57,6 +58,6 @@ class ProductRepositoryTest {
         repo.removeById(2);
         Product[] expected = {item1, item3};
         assertArrayEquals(expected, repo.findAll());
-
     }
+
 }
