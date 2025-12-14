@@ -60,4 +60,39 @@ class ProductRepositoryTest {
         assertArrayEquals(expected, repo.findAll());
     }
 
+    @Test
+    public void removeByIdWhenProductExists() {
+        ProductRepository repo = new ProductRepository();
+        Product item1 = new Product(1, "книга Гарри Поттер Том1", 500);
+        Product item2 = new Product(2, "Iphone", 1000);
+        Product item3 = new Product(3, "Игрушка мягкая", 300);
+
+        repo.save(item1);
+        repo.save(item2);
+        repo.save(item3);
+
+        repo.removeById(2);
+        Product[] expected = {item1, item3};
+        Product[] actual = repo.findAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldThrowCheckedExceptionWhenRemoveByIdWhenProductNotExists() {
+        ProductRepository repo = new ProductRepository();
+        Product item1 = new Product(1, "книга Гарри Поттер Том1", 500);
+        Product item2 = new Product(2, "Iphone", 1000);
+        Product item3 = new Product(3, "Игрушка мягкая", 300);
+
+        repo.save(item1);
+        repo.save(item2);
+        repo.save(item3);
+
+
+        assertThrows(NotFoundException.class, () -> {repo.removeById(4);});
+
+        Product[] expected = {item1, item2, item3};
+        assertArrayEquals(expected, repo.findAll());
+    }
+
 }
