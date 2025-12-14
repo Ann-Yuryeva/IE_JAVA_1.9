@@ -95,4 +95,17 @@ class ProductRepositoryTest {
         assertArrayEquals(expected, repo.findAll());
     }
 
+    @Test
+    public void shouldThrowCheckedExceptionWhenSaveByIdWhenProductAlreadyExists() {
+        ProductRepository repo = new ProductRepository();
+        Product item1 = new Product(1, "книга Гарри Поттер Том1", 500);
+        Product item2 = new Product(2, "Iphone", 1000);
+        Product item3 = new Product(3, "Игрушка мягкая", 300);
+
+        repo.save(item1);
+        repo.save(item2);
+
+
+        assertThrows(AlreadyExistsException.class, () -> {repo.save(item2);});
+    }
 }
